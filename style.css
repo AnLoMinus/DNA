@@ -1026,6 +1026,39 @@ section {
     box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
 }
 
+/* Facebook Links */
+.facebook-link {
+    color: #1877F2;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.facebook-link:hover {
+    color: #0A5FCC;
+    transform: scale(1.05);
+}
+
+.facebook-group-link {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.facebook-group-btn {
+    background: linear-gradient(135deg, #1877F2 0%, #0A5FCC 100%);
+    color: var(--light-text);
+    border: none;
+}
+
+.facebook-group-btn:hover {
+    background: linear-gradient(135deg, #0A5FCC 0%, #1877F2 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(24, 119, 242, 0.4);
+}
+
 /* Form Select Styles */
 .form-group select {
     width: 100%;
