@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="תורמים - מועדון DNA חולון">
+    <title>תורמים - DNA חולון</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        .contributors-page {
+            padding: 2rem 0;
+            padding-top: 120px;
+        }
+        
+        .contributors-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .contributors-intro {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            color: var(--gray-text);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .contributors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .contributor-card {
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .contributor-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4);
+        }
+        
+        .contributor-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--light-text);
+            border: 4px solid var(--dark-bg);
+        }
+        
+        .contributor-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--light-text);
+        }
+        
+        .contributor-role {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .contributor-bio {
+            color: var(--gray-text);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contributor-contributions {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contributor-contributions li {
+            padding: 0.5rem 0;
+            color: var(--gray-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .contributor-contributions li::before {
+            content: '✓';
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        .contributor-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .contributor-link {
+            padding: 0.5rem 1rem;
+            background: rgba(139, 92, 246, 0.2);
+            border-radius: 10px;
+            color: var(--light-text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .contributor-link:hover {
+            background: var(--gradient-1);
+            transform: translateY(-2px);
+        }
+        
+        .become-contributor {
+            background: rgba(236, 72, 153, 0.1);
+            border-radius: 25px;
+            padding: 3rem;
+            text-align: center;
+            margin-top: 4rem;
+            border: 2px solid rgba(236, 72, 153, 0.3);
+        }
+        
+        .become-contributor h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .become-contributor p {
+            color: var(--gray-text);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <img src="assets/logo/dna-logo.png" alt="DNA HOUSE" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                    <span class="dna-symbol" style="display:none;">🧬</span>
+                    <div class="logo-text-wrapper">
+                        <span class="logo-text">DNA HOUSE</span>
+                        <span class="version-tag">v1.0.0</span>
+                    </div>
+                </div>
+                <button class="menu-toggle" id="menuToggle" aria-label="תפריט">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">בית</a></li>
+                    <li><a href="index.html#about" class="nav-link">אודות</a></li>
+                    <li><a href="index.html#events" class="nav-link">אירועים</a></li>
+                    <li><a href="events.html" class="nav-link">יומן אירועים</a></li>
+                    <li><a href="coupons.html" class="nav-link">קופונים</a></li>
+                    <li><a href="membership.html" class="nav-link">מנויים</a></li>
+                    <li><a href="gallery.html" class="nav-link">גלריה</a></li>
+                    <li><a href="roadmap.html" class="nav-link">מפת דרכים</a></li>
+                    <li><a href="index.html#location" class="nav-link">מיקום</a></li>
+                    <li><a href="index.html#contact" class="nav-link">צור קשר</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contributors Section -->
+    <section class="contributors-page">
+        <div class="container">
+            <div class="contributors-header">
+                <h1 class="section-title">תורמים</h1>
+                <p class="section-subtitle">האנשים שעושים את DNA לקרה</p>
+            </div>
+
+            <div class="contributors-intro">
+                <p>
+                    מועדון DNA הוא פרויקט קהילתי שצמח בזכות תרומות של אנשים מדהימים.
+                    אנו מודים לכל מי שתרם זמן, כישרון ומאמץ ליצירת חוויה ייחודית!
+                </p>
+            </div>
+
+            <div class="contributors-grid">
+                <!-- Founder -->
+                <div class="contributor-card">
+                    <div class="contributor-avatar">אד</div>
+                    <h3 class="contributor-name">אדיר DNA</h3>
+                    <p class="contributor-role">מייסד ומנהל</p>
+                    <p class="contributor-bio">
+                        המייסד והמוח מאחורי מועדון DNA. מחויב ליצירת חוויה ייחודית ובלתי נשכחת.
+                    </p>
+                    <ul class="contributor-contributions">
+                        <li>הקמת המועדון</li>
+                        <li>פיתוח האתר</li>
+                        <li>ניהול שוטף</li>
+                    </ul>
+                    <div class="contributor-links">
+                        <a href="https://wa.me/972525818799" target="_blank" class="contributor-link">📱 וואטסאפ</a>
+                    </div>
+                </div>
+
+                <!-- Co-Founder -->
+                <div class="contributor-card">
+                    <div class="contributor-avatar">אל</div>
+                    <h3 class="contributor-name">~אלין</h3>
+                    <p class="contributor-role">שותפה ומנהלת</p>
+                    <p class="contributor-bio">
+                        שותפה מלאה בהקמת המועדון. אחראית על יצירת קשרים ופיתוח קהילה.
+                    </p>
+                    <ul class="contributor-contributions">
+                        <li>פיתוח קהילה</li>
+                        <li>ניהול אירועים</li>
+                        <li>יצירת קשרים</li>
+                    </ul>
+                    <div class="contributor-links">
+                        <a href="https://wa.me/972527726987" target="_blank" class="contributor-link">📱 וואטסאפ</a>
+                    </div>
+                </div>
+
+                <!-- Developer -->
+                <div class="contributor-card">
+                    <div class="contributor-avatar">און</div>
+                    <h3 class="contributor-name">און יעקובוב</h3>
+                    <p class="contributor-role">מפתח האתר</p>
+                    <p class="contributor-bio">
+                        מפתח ומתכנת האתר הרשמי של מועדון DNA. אחראי על בניית האתר, עיצוב הממשקים והפיתוח הטכני.
+                    </p>
+                    <ul class="contributor-contributions">
+                        <li>בניית האתר המלא</li>
+                        <li>פיתוח ממשקים</li>
+                        <li>עיצוב UX/UI</li>
+                        <li>תמיכה טכנית</li>
+                    </ul>
+                    <div class="contributor-links">
+                        <span class="contributor-link">AnLominus</span>
+                    </div>
+                </div>
+
+                <!-- Community -->
+                <div class="contributor-card">
+                    <div class="contributor-avatar">💚</div>
+                    <h3 class="contributor-name">הקהילה</h3>
+                    <p class="contributor-role">תורמים מהקהילה</p>
+                    <p class="contributor-bio">
+                        כל מי שתרם רעיונות, תמונות, סרטונים ותוכן לקהילה שלנו.
+                    </p>
+                    <ul class="contributor-contributions">
+                        <li>תרומת תוכן</li>
+                        <li>שיתוף רעיונות</li>
+                        <li>תמיכה בקהילה</li>
+                    </ul>
+                    <div class="contributor-links">
+                        <a href="https://chat.whatsapp.com/L1TmsRNf8DT5mC8MOOq8O9" target="_blank" class="contributor-link">💬 קבוצה</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="become-contributor">
+                <h3>רוצה להצטרף?</h3>
+                <p>
+                    אם יש לך כישורים, רעיונות או פשוט רצון לעזור - אנו מזמינים אותך להצטרף לקהילה שלנו!
+                    בין אם זה פיתוח, עיצוב, תוכן, אירועים או כל דבר אחר - כל תרומה מוערכת מאוד.
+                </p>
+                <a href="index.html#contact" class="btn btn-primary">הצטרף כמתנדב</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="assets/logo/dna-logo.png" alt="DNA HOUSE" class="footer-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                        <span class="dna-symbol" style="display:none;">🧬</span>
+                        <span>DNA HOUSE</span>
+                    </div>
+                    <p>הבית של הלילה בחולון</p>
+                    <div class="footer-contact">
+                        <p><strong>צור קשר:</strong></p>
+                        <p><a href="https://wa.me/972525818799" target="_blank" class="footer-link">אדיר: +972 52-581-8799</a></p>
+                        <p><a href="https://wa.me/972527726987" target="_blank" class="footer-link">~אלין: +972 52-772-6987</a></p>
+                        <p class="footer-coupon"><strong>קוד קופון:</strong> AnLoMinus</p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>קישורים מהירים</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">בית</a></li>
+                        <li><a href="contributors.html">תורמים</a></li>
+                        <li><a href="roadmap.html">מפת דרכים</a></li>
+                        <li><a href="license.html">רישיון</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>האשטגים</h4>
+                    <div class="hashtags">
+                        <span>#DNAClub</span>
+                        <span>#DNANights</span>
+                        <span>#DanceNexus</span>
+                        <span>#Holon</span>
+                        <span>#SparkZone</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 DNA חולון. כל הזכויות שמורות. | 
+                   <a href="license.html" class="footer-link">רישיון</a> | 
+                   <a href="contributors.html" class="footer-link">תורמים</a> | 
+                   קוד קופון: <strong>AnLoMinus</strong>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

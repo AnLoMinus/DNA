@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="קופונים והטבות - מועדון DNA חולון">
+    <title>קופונים והטבות - DNA חולון</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        .coupons-page {
+            padding: 2rem 0;
+            padding-top: 120px;
+        }
+
+        .coupons-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .coupons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .coupon-card {
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coupon-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .coupon-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4);
+        }
+
+        .coupon-card:hover::before {
+            opacity: 1;
+        }
+
+        .coupon-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--gradient-2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .coupon-code-display {
+            font-size: 2rem;
+            font-weight: 900;
+            font-family: monospace;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 1.5rem 0;
+            letter-spacing: 3px;
+            text-align: center;
+        }
+
+        .coupon-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--light-text);
+        }
+
+        .coupon-description {
+            color: var(--gray-text);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .coupon-details {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .coupon-details li {
+            padding: 0.5rem 0;
+            color: var(--gray-text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .coupon-details li::before {
+            content: '✓';
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .copy-coupon-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--gradient-1);
+            color: var(--light-text);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .copy-coupon-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .copy-coupon-btn.copied {
+            background: var(--gradient-2);
+        }
+
+        .coupon-category {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(139, 92, 246, 0.2);
+            border-radius: 15px;
+            font-size: 0.85rem;
+            color: var(--primary-color);
+            margin-top: 1rem;
+        }
+
+        .special-coupon {
+            border-color: var(--secondary-color);
+            background: rgba(236, 72, 153, 0.15);
+        }
+
+        .special-coupon .coupon-badge {
+            background: var(--gradient-2);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <img src="assets/logo/dna-logo.png" alt="DNA HOUSE" class="logo-img"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                    <span class="dna-symbol" style="display:none;">🧬</span>
+                    <div class="logo-text-wrapper">
+                        <span class="logo-text">DNA HOUSE</span>
+                        <span class="version-tag">v1.0.0</span>
+                    </div>
+                </div>
+                <button class="menu-toggle" id="menuToggle" aria-label="תפריט">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">בית</a></li>
+                    <li><a href="index.html#about" class="nav-link">אודות</a></li>
+                    <li><a href="index.html#events" class="nav-link">אירועים</a></li>
+                    <li><a href="events.html" class="nav-link">יומן אירועים</a></li>
+                    <li><a href="coupons.html" class="nav-link active">קופונים</a></li>
+                    <li><a href="membership.html" class="nav-link">מנויים</a></li>
+                    <li><a href="index.html#location" class="nav-link">מיקום</a></li>
+                    <li><a href="index.html#contact" class="nav-link">צור קשר</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Coupons Section -->
+    <section class="coupons-page">
+        <div class="container">
+            <div class="coupons-header">
+                <h1 class="section-title">קופונים והטבות</h1>
+                <p class="section-subtitle">השתמש בקופונים והנהנה מהטבות מיוחדות!</p>
+            </div>
+
+            <div class="coupons-grid" id="couponsGrid">
+                <!-- Coupon 1 -->
+                <div class="coupon-card special">
+                    <div class="coupon-badge">פופולרי</div>
+                    <div class="coupon-code-display">AnLoMinus</div>
+                    <h3 class="coupon-title">קופון פתיחה</h3>
+                    <p class="coupon-description">50% הנחה על כניסה רגילה. מושלם למבקרים חדשים!</p>
+                    <ul class="coupon-details">
+                        <li>50% הנחה על כניסה</li>
+                        <li>תקף לכל הימים</li>
+                        <li>ללא הגבלה</li>
+                    </ul>
+                    <span class="coupon-category">הנחה כללית</span>
+                    <button class="copy-coupon-btn" onclick="copyCoupon('AnLoMinus', this)">העתק קוד</button>
+                </div>
+
+                <!-- Coupon 2 -->
+                <div class="coupon-card">
+                    <div class="coupon-badge">חדש</div>
+                    <div class="coupon-code-display">SATURDAY50</div>
+                    <h3 class="coupon-title">50% הנחה בשבת</h3>
+                    <p class="coupon-description">50% הנחה על כניסה בשבת מ-14:00. מתאים לסופי שבוע!</p>
+                    <ul class="coupon-details">
+                        <li>50% הנחה</li>
+                        <li>תקף בשבת מ-14:00</li>
+                        <li>חד פעמי</li>
+                    </ul>
+                    <span class="coupon-category">סוף שבוע</span>
+                    <button class="copy-coupon-btn" onclick="copyCoupon('SATURDAY50', this)">העתק קוד</button>
+                </div>
+
+                <!-- Coupon 3 -->
+                <div class="coupon-card">
+                    <div class="coupon-code-display">VIP20</div>
+                    <h3 class="coupon-title">שדרוג VIP</h3>
+                    <p class="coupon-description">שדרוג ל-VIP ב-20 שקלים בלבד במקום המחיר המלא!</p>
+                    <ul class="coupon-details">
+                        <li>שדרוג VIP ב-20 ₪</li>
+                        <li>תקף לכל הימים</li>
+                        <li>חד פעמי</li>
+                    </ul>
+                    <span class="coupon-category">VIP</span>
+                    <button class="copy-coupon-btn" onclick="copyCoupon('VIP20', this)">העתק קוד</button>
+                </div>
+
+                <!-- Coupon 4 -->
+                <div class="coupon-card">
+                    <div class="coupon-code-display">DRINKFREE</div>
+                    <h3 class="coupon-title">דרינק חינם</h3>
+                    <p class="coupon-description">דרינק ראשון עלינו! מתאים למי שמגיע בפעם הראשונה.</p>
+                    <ul class="coupon-details">
+                        <li>דרינק ראשון חינם</li>
+                        <li>תקף לכל המשקאות</li>
+                        <li>חד פעמי</li>
+                    </ul>
+                    <span class="coupon-category">משקאות</span>
+                    <button class="copy-coupon-btn" onclick="copyCoupon('DRINKFREE', this)">העתק קוד</button>
+                </div>
+
+                <!-- Coupon 5 -->
+                <div class="coupon-card">
+                    <div class="coupon-code-display">FRIENDS30</div>
+                    <h3 class="coupon-title">חברים ביחד</h3>
+                    <p class="coupon-description">30% הנחה לקבוצות של 4 אנשים ומעלה!</p>
+                    <ul class="coupon-details">
+                        <li>30% הנחה</li>
+                        <li>למינימום 4 אנשים</li>
+                        <li>תקף לכל הימים</li>
+                    </ul>
+                    <span class="coupon-category">קבוצות</span>
+                    <button class="copy-coupon-btn" onclick="copyCoupon('FRIENDS30', this)">העתק קוד</button>
+                </div>
+
+                <!-- Coupon 6 -->
+                <div class="coupon-card">
+                    <div class="coupon-code-display">THURSDAY25</div>
+                    <h3 class="coupon-title">חמישי מוזל</h3>
+                    <p class="coupon-description">25% הנחה כל חמישי. התחלה מושלמת של סוף השבוע!</p>
+                    <ul class="coupon-details">
+                        <li>25% הנחה</li>
+                        <li>תקף בימי חמישי</li>
+                        <li>ללא הגבלה</li>
+                    </ul>
+                    <span class="coupon-category">יום בשבוע</span>
+                    <button class="copy-coupon-btn" onclick="copyCoupon('THURSDAY25', this)">העתק קוד</button>
+                </div>
+
+                <!-- Coupon 7 -->
+                <div class="coupon-card">
+                    <div class="coupon-code-display">FRIDAY35</div>
+                    <h3 class="coupon-title">שישי מטורף</h3>
+                    <p class="coupon-description">35% הנחה בימי שישי. הכנה מושלמת לשבת!</p>
+                    <ul class="coupon-details">
+                        <li>35% הנחה</li>
+                        <li>תקף בימי שישי</li>
+                        <li>ללא הגבלה</li>
+                    </ul>
+                    <span class="coupon-category">יום בשבוע</span>
+                    <button class="copy-coupon-btn" onclick="copyCoupon('FRIDAY35', this)">העתק קוד</button>
+                </div>
+
+                <!-- Coupon 8 -->
+                <div class="coupon-card">
+                    <div class="coupon-code-display">BIRTHDAY</div>
+                    <h3 class="coupon-title">יום הולדת</h3>
+                    <p class="coupon-description">חוגג יום הולדת? קבל כניסה חינם + דרינק מתנה!</p>
+                    <ul class="coupon-details">
+                        <li>כניסה חינם</li>
+                        <li>דרינק מתנה</li>
+                        <li>תקף ביום ההולדת</li>
+                    </ul>
+                    <span class="coupon-category">אירועים מיוחדים</span>
+                    <button class="copy-coupon-btn" onclick="copyCoupon('BIRTHDAY', this)">העתק קוד</button>
+                </div>
+
+                <!-- Coupon 9 -->
+                <div class="coupon-card">
+                    <div class="coupon-code-display">POOL40</div>
+                    <h3 class="coupon-title">בריכה מוזלת</h3>
+                    <p class="coupon-description">40% הנחה על כניסה עם גישה לבריכה. מתאים לקיץ!</p>
+                    <ul class="coupon-details">
+                        <li>40% הנחה</li>
+                        <li>גישה לבריכה</li>
+                        <li>תקף בימי שבת</li>
+                    </ul>
+                    <span class="coupon-category">בריכה</span>
+                    <button class="copy-coupon-btn" onclick="copyCoupon('POOL40', this)">העתק קוד</button>
+                </div>
+
+                <!-- Coupon 10 -->
+                <div class="coupon-card">
+                    <div class="coupon-code-display">STUDENT</div>
+                    <h3 class="coupon-title">הנחת סטודנט</h3>
+                    <p class="coupon-description">20% הנחה לסטודנטים. הצג תעודת סטודנט בשער!</p>
+                    <ul class="coupon-details">
+                        <li>20% הנחה</li>
+                        <li>תקף לסטודנטים</li>
+                        <li>תעודת סטודנט נדרשת</li>
+                    </ul>
+                    <span class="coupon-category">הטבות</span>
+                    <button class="copy-coupon-btn" onclick="copyCoupon('STUDENT', this)">העתק קוד</button>
+                </div>
+
+                <!-- Coupon 11 -->
+                <div class="coupon-card">
+                    <div class="coupon-code-display">EARLYBIRD</div>
+                    <h3 class="coupon-title">מוקדם ציפור</h3>
+                    <p class="coupon-description">30% הנחה למי שמגיע לפני 23:00!</p>
+                    <ul class="coupon-details">
+                        <li>30% הנחה</li>
+                        <li>תקף לפני 23:00</li>
+                        <li>ללא הגבלה</li>
+                    </ul>
+                    <span class="coupon-category">זמנים</span>
+                    <button class="copy-coupon-btn" onclick="copyCoupon('EARLYBIRD', this)">העתק קוד</button>
+                </div>
+
+                <!-- Coupon 12 -->
+                <div class="coupon-card">
+                    <div class="coupon-code-display">COUPLE45</div>
+                    <h3 class="coupon-title">זוגות</h3>
+                    <p class="coupon-description">45% הנחה לזוגות שמגיעים יחד. רומנטיקה!</p>
+                    <ul class="coupon-details">
+                        <li>45% הנחה לזוג</li>
+                        <li>תקף לכל הימים</li>
+                        <li>חד פעמי</li>
+                    </ul>
+                    <span class="coupon-category">זוגות</span>
+                    <button class="copy-coupon-btn" onclick="copyCoupon('COUPLE45', this)">העתק קוד</button>
+                </div>
+
+                <!-- Coupon 13 -->
+                <div class="coupon-card">
+                    <div class="coupon-code-display">RETURN</div>
+                    <h3 class="coupon-title">לקוחות חוזרים</h3>
+                    <p class="coupon-description">25% הנחה ללקוחות חוזרים. תודה על הנאמנות!</p>
+                    <ul class="coupon-details">
+                        <li>25% הנחה</li>
+                        <li>ללקוחות חוזרים</li>
+                        <li>ללא הגבלה</li>
+                    </ul>
+                    <span class="coupon-category">נאמנות</span>
+                    <button class="copy-coupon-btn" onclick="copyCoupon('RETURN', this)">העתק קוד</button>
+                </div>
+
+                <!-- Coupon 14 -->
+                <div class="coupon-card">
+                    <div class="coupon-code-display">SNACK10</div>
+                    <h3 class="coupon-title">חטיף חינם</h3>
+                    <p class="coupon-description">חטיף חינם עם כל כניסה. בונוס מתוק!</p>
+                    <ul class="coupon-details">
+                        <li>חטיף חינם</li>
+                        <li>תקף לכל הימים</li>
+                        <li>חד פעמי</li>
+                    </ul>
+                    <span class="coupon-category">מזון</span>
+                    <button class="copy-coupon-btn" onclick="copyCoupon('SNACK10', this)">העתק קוד</button>
+                </div>
+
+                <!-- Coupon 15 -->
+                <div class="coupon-card">
+                    <div class="coupon-code-display">LATE60</div>
+                    <h3 class="coupon-title">מאוחר בלילה</h3>
+                    <p class="coupon-description">40% הנחה למי שמגיע אחרי 02:00. לילה עמוק!</p>
+                    <ul class="coupon-details">
+                        <li>40% הנחה</li>
+                        <li>תקף אחרי 02:00</li>
+                        <li>ללא הגבלה</li>
+                    </ul>
+                    <span class="coupon-category">זמנים</span>
+                    <button class="copy-coupon-btn" onclick="copyCoupon('LATE60', this)">העתק קוד</button>
+                </div>
+
+                <!-- Coupon 16 -->
+                <div class="coupon-card">
+                    <div class="coupon-code-display">WEEKEND55</div>
+                    <h3 class="coupon-title">סוף שבוע מלא</h3>
+                    <p class="coupon-description">55% הנחה לכניסה בימי שישי ושבת יחד!</p>
+                    <ul class="coupon-details">
+                        <li>55% הנחה</li>
+                        <li>שישי ושבת</li>
+                        <li>חד פעמי</li>
+                    </ul>
+                    <span class="coupon-category">סוף שבוע</span>
+                    <button class="copy-coupon-btn" onclick="copyCoupon('WEEKEND55', this)">העתק קוד</button>
+                </div>
+
+                <!-- Coupon 17 -->
+                <div class="coupon-card">
+                    <div class="coupon-code-display">FIRSTTIME</div>
+                    <h3 class="coupon-title">פעם ראשונה</h3>
+                    <p class="coupon-description">50% הנחה למבקרים בפעם הראשונה. ברוכים הבאים!</p>
+                    <ul class="coupon-details">
+                        <li>50% הנחה</li>
+                        <li>למבקרים חדשים</li>
+                        <li>חד פעמי</li>
+                    </ul>
+                    <span class="coupon-category">חדש</span>
+                    <button class="copy-coupon-btn" onclick="copyCoupon('FIRSTTIME', this)">העתק קוד</button>
+                </div>
+
+                <!-- Coupon 18 -->
+                <div class="coupon-card special">
+                    <div class="coupon-badge">VIP</div>
+                    <div class="coupon-code-display">MEMBERSHIP</div>
+                    <h3 class="coupon-title">מנוי חינם</h3>
+                    <p class="coupon-description">נסה מנוי חינם למשך חודש. ללא התחייבות!</p>
+                    <ul class="coupon-details">
+                        <li>חודש חינם</li>
+                        <li>ללא התחייבות</li>
+                        <li>חד פעמי</li>
+                    </ul>
+                    <span class="coupon-category">מנויים</span>
+                    <a href="membership.html" class="copy-coupon-btn"
+                        style="text-decoration: none; display: block; text-align: center;">לפרטים</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="assets/logo/dna-logo.png" alt="DNA HOUSE" class="footer-logo-img"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                        <span class="dna-symbol" style="display:none;">🧬</span>
+                        <span>DNA HOUSE</span>
+                    </div>
+                    <p>הבית של הלילה בחולון</p>
+                    <div class="footer-contact">
+                        <p><strong>צור קשר:</strong></p>
+                        <p><a href="https://wa.me/972525818799" target="_blank" class="footer-link">אדיר: +972
+                                52-581-8799</a></p>
+                        <p><a href="https://wa.me/972527726987" target="_blank" class="footer-link">~אלין: +972
+                                52-772-6987</a></p>
+                        <p class="footer-coupon"><strong>קוד קופון:</strong> AnLoMinus</p>
+                        <p style="margin-top: 1rem;">
+                            <a href="https://chat.whatsapp.com/L1TmsRNf8DT5mC8MOOq8O9" target="_blank"
+                                class="footer-link whatsapp-group-link">
+                                💬 הצטרף לקבוצת וואטסאפ
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>קישורים מהירים</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">בית</a></li>
+                        <li><a href="coupons.html">קופונים</a></li>
+                        <li><a href="membership.html">מנויים</a></li>
+                        <li><a href="events.html">יומן אירועים</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>האשטגים</h4>
+                    <div class="hashtags">
+                        <span>#DNAClub</span>
+                        <span>#DNANights</span>
+                        <span>#DanceNexus</span>
+                        <span>#Holon</span>
+                        <span>#SparkZone</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 DNA חולון. כל הזכויות שמורות. |
+                    <a href="LICENSE" class="footer-link">רישיון</a> |
+                    קוד קופון: <strong>AnLoMinus</strong>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function copyCoupon(code, button) {
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'הועתק! ✓';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                alert('לא הצלחתי להעתיק. אנא העתק ידנית: ' + code);
+            });
+        }
+    </script>
+</body>
+
+</html>

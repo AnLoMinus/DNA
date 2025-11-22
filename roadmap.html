@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="מפת דרכים - מועדון DNA חולון">
+    <title>מפת דרכים - DNA חולון</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        .roadmap-page {
+            padding: 2rem 0;
+            padding-top: 120px;
+        }
+        
+        .roadmap-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .roadmap-intro {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            color: var(--gray-text);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .roadmap-timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .roadmap-timeline::before {
+            content: '';
+            position: absolute;
+            right: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--gradient-1);
+            transform: translateX(50%);
+        }
+        
+        .roadmap-item {
+            position: relative;
+            margin-bottom: 4rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .roadmap-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+        
+        .roadmap-item-content {
+            width: 45%;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .roadmap-item:nth-child(odd) .roadmap-item-content {
+            margin-right: 5%;
+        }
+        
+        .roadmap-item:nth-child(even) .roadmap-item-content {
+            margin-left: 5%;
+        }
+        
+        .roadmap-item-content:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4);
+        }
+        
+        .roadmap-item-date {
+            position: absolute;
+            right: 50%;
+            transform: translateX(50%);
+            background: var(--gradient-1);
+            min-width: 100px;
+            min-height: 100px;
+            max-width: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 0.9rem;
+            color: var(--light-text);
+            border: 5px solid var(--dark-bg);
+            z-index: 10;
+            text-align: center;
+            line-height: 1.3;
+            padding: 0.5rem;
+        }
+        
+        .roadmap-item-status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .roadmap-item-status.completed {
+            background: var(--gradient-1);
+            color: var(--light-text);
+        }
+        
+        .roadmap-item-status.in-progress {
+            background: var(--gradient-2);
+            color: var(--light-text);
+        }
+        
+        .roadmap-item-status.planned {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--primary-color);
+        }
+        
+        .roadmap-item-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--light-text);
+        }
+        
+        .roadmap-item-description {
+            color: var(--gray-text);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .roadmap-item-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .roadmap-item-features li {
+            padding: 0.5rem 0;
+            color: var(--gray-text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .roadmap-item-features li::before {
+            content: '→';
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        @media (max-width: 768px) {
+            .roadmap-timeline::before {
+                right: 20px;
+            }
+            
+            .roadmap-item {
+                flex-direction: column !important;
+            }
+            
+            .roadmap-item-content {
+                width: 100% !important;
+                margin: 0 !important;
+            }
+            
+            .roadmap-item-date {
+                right: 20px;
+                transform: translateX(50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <img src="assets/logo/dna-logo.png" alt="DNA HOUSE" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                    <span class="dna-symbol" style="display:none;">🧬</span>
+                    <div class="logo-text-wrapper">
+                        <span class="logo-text">DNA HOUSE</span>
+                        <span class="version-tag">v1.0.0</span>
+                    </div>
+                </div>
+                <button class="menu-toggle" id="menuToggle" aria-label="תפריט">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">בית</a></li>
+                    <li><a href="index.html#about" class="nav-link">אודות</a></li>
+                    <li><a href="index.html#events" class="nav-link">אירועים</a></li>
+                    <li><a href="events.html" class="nav-link">יומן אירועים</a></li>
+                    <li><a href="coupons.html" class="nav-link">קופונים</a></li>
+                    <li><a href="membership.html" class="nav-link">מנויים</a></li>
+                    <li><a href="gallery.html" class="nav-link">גלריה</a></li>
+                    <li><a href="roadmap.html" class="nav-link active">מפת דרכים</a></li>
+                    <li><a href="index.html#location" class="nav-link">מיקום</a></li>
+                    <li><a href="index.html#contact" class="nav-link">צור קשר</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Roadmap Section -->
+    <section class="roadmap-page">
+        <div class="container">
+            <div class="roadmap-header">
+                <h1 class="section-title">מפת דרכים</h1>
+                <p class="section-subtitle">התוכניות וההישגים שלנו</p>
+            </div>
+
+            <div class="roadmap-intro">
+                <p>
+                    כאן תוכלו לעקוב אחרי ההתפתחות של מועדון DNA, התוכניות לעתיד וההישגים שלנו.
+                    אנו מחויבים להמשיך לפתח ולשפר את החוויה שלנו עבורכם!
+                </p>
+            </div>
+
+            <div class="roadmap-timeline">
+                <!-- Phase 1 -->
+                <div class="roadmap-item">
+                    <div class="roadmap-item-date">ינואר-מרץ<br>2025</div>
+                    <div class="roadmap-item-content">
+                        <span class="roadmap-item-status completed">הושלם</span>
+                        <h2 class="roadmap-item-title">שלב 1: פתיחה (ינואר-מרץ 2025)</h2>
+                        <p class="roadmap-item-description">
+                            השלב הראשון כולל את הקמת המועדון והאתר הרשמי.
+                        </p>
+                        <ul class="roadmap-item-features">
+                            <li>הקמת המועדון בחולון</li>
+                            <li>פיתוח אתר רשמי</li>
+                            <li>מערכת הזמנות ומנויים</li>
+                            <li>עמוד קופונים והטבות</li>
+                            <li>עמוד גלריה</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="roadmap-item">
+                    <div class="roadmap-item-date">אפריל-יוני<br>2025</div>
+                    <div class="roadmap-item-content">
+                        <span class="roadmap-item-status in-progress">בתהליך</span>
+                        <h2 class="roadmap-item-title">שלב 2: התרחבות (אפריל-יוני 2025)</h2>
+                        <p class="roadmap-item-description">
+                            התרחבות של השירותים והתכונות שלנו.
+                        </p>
+                        <ul class="roadmap-item-features">
+                            <li>תוכנית מנויים מורחבת</li>
+                            <li>אירועים מיוחדים שבועיים</li>
+                            <li>אפליקציה למובייל</li>
+                            <li>מערכת הזמנת שולחנות</li>
+                            <li>תוכנית נאמנות</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="roadmap-item">
+                    <div class="roadmap-item-date">יולי-ספטמבר<br>2025</div>
+                    <div class="roadmap-item-content">
+                        <span class="roadmap-item-status planned">מתוכנן</span>
+                        <h2 class="roadmap-item-title">שלב 3: שיפורים (יולי-ספטמבר 2025)</h2>
+                        <p class="roadmap-item-description">
+                            שיפורים מתקדמים בחוויית הלקוח.
+                        </p>
+                        <ul class="roadmap-item-features">
+                            <li>מערכת הזמנות מתקדמת</li>
+                            <li>אירועים VIP בלעדיים</li>
+                            <li>שיפורי בריכה וסנוגר</li>
+                            <li>שירות VIP מורחב</li>
+                            <li>שיתופי פעולה עם אמנים</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Phase 4 -->
+                <div class="roadmap-item">
+                    <div class="roadmap-item-date">אוקטובר-דצמבר<br>2025</div>
+                    <div class="roadmap-item-content">
+                        <span class="roadmap-item-status planned">מתוכנן</span>
+                        <h2 class="roadmap-item-title">שלב 4: חדשנות (אוקטובר-דצמבר 2025)</h2>
+                        <p class="roadmap-item-description">
+                            חדשנות וטכנולוגיה מתקדמת.
+                        </p>
+                        <ul class="roadmap-item-features">
+                            <li>מערכת VR/AR לחוויות מיוחדות</li>
+                            <li>אירועים דיגיטליים</li>
+                            <li>שירותים חכמים מבוססי AI</li>
+                            <li>פרסים והטבות דיגיטליות</li>
+                            <li>קהילה דיגיטלית פעילה</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Phase 5 -->
+                <div class="roadmap-item">
+                    <div class="roadmap-item-date">2026<br>ומעלה</div>
+                    <div class="roadmap-item-content">
+                        <span class="roadmap-item-status planned">מתוכנן</span>
+                        <h2 class="roadmap-item-title">שלב 5: התרחבות (2026 ומעלה)</h2>
+                        <p class="roadmap-item-description">
+                            התרחבות גיאוגרפית ומיזמים חדשים.
+                        </p>
+                        <ul class="roadmap-item-features">
+                            <li>סניפים נוספים בערים אחרות</li>
+                            <li>פסטיבלים ואירועים גדולים</li>
+                            <li>שיתופי פעולה בינלאומיים</li>
+                            <li>תוכנית פרסים ומלגות</li>
+                            <li>מרכז אומנות ומוזיקה</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="assets/logo/dna-logo.png" alt="DNA HOUSE" class="footer-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                        <span class="dna-symbol" style="display:none;">🧬</span>
+                        <span>DNA HOUSE</span>
+                    </div>
+                    <p>הבית של הלילה בחולון</p>
+                    <div class="footer-contact">
+                        <p><strong>צור קשר:</strong></p>
+                        <p><a href="https://wa.me/972525818799" target="_blank" class="footer-link">אדיר: +972 52-581-8799</a></p>
+                        <p><a href="https://wa.me/972527726987" target="_blank" class="footer-link">~אלין: +972 52-772-6987</a></p>
+                        <p class="footer-coupon"><strong>קוד קופון:</strong> AnLoMinus</p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>קישורים מהירים</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">בית</a></li>
+                        <li><a href="roadmap.html">מפת דרכים</a></li>
+                        <li><a href="gallery.html">גלריה</a></li>
+                        <li><a href="contributors.html">תורמים</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>האשטגים</h4>
+                    <div class="hashtags">
+                        <span>#DNAClub</span>
+                        <span>#DNANights</span>
+                        <span>#DanceNexus</span>
+                        <span>#Holon</span>
+                        <span>#SparkZone</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 DNA חולון. כל הזכויות שמורות. | 
+                   <a href="license.html" class="footer-link">רישיון</a> | 
+                   <a href="contributors.html" class="footer-link">תורמים</a> | 
+                   קוד קופון: <strong>AnLoMinus</strong>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

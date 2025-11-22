@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="מועדון DNA חולון - הבית של הלילה. מוזיקה חודרת, תאורה הולוגרפית ואנרגיה גבוהה">
+    <title>DNA חולון</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <img src="assets/logo/dna-logo.png" alt="DNA HOUSE" class="logo-img"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                    <span class="dna-symbol" style="display:none;">🧬</span>
+                    <div class="logo-text-wrapper">
+                        <span class="logo-text">DNA HOUSE</span>
+                        <span class="version-tag">v1.0.0</span>
+                    </div>
+                </div>
+                <button class="menu-toggle" id="menuToggle" aria-label="תפריט">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link">בית</a></li>
+                    <li><a href="#about" class="nav-link">אודות</a></li>
+                    <li><a href="#events" class="nav-link">אירועים</a></li>
+                    <li><a href="events.html" class="nav-link">יומן אירועים</a></li>
+                    <li><a href="coupons.html" class="nav-link">קופונים</a></li>
+                    <li><a href="membership.html" class="nav-link">מנויים</a></li>
+                    <li><a href="gallery.html" class="nav-link">גלריה</a></li>
+                    <li><a href="roadmap.html" class="nav-link">מפת דרכים</a></li>
+                    <li><a href="#location" class="nav-link">מיקום</a></li>
+                    <li><a href="#pricing" class="nav-link">מחירים</a></li>
+                    <li><a href="#contact" class="nav-link">צור קשר</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="particles"></div>
+            <div class="dna-helix"></div>
+        </div>
+        <div class="hero-content">
+            <div class="container">
+                <div class="hero-logo">
+                    <img src="assets/logo/dna-logo.png" alt="DNA HOUSE" class="hero-logo-img"
+                        onerror="this.style.display='none';">
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-line">מועדון DNA</span>
+                    <span class="title-line highlight">הבית של הלילה</span>
+                </h1>
+                <p class="hero-subtitle">אנרגיה גבוהה • מוזיקה חודרת • תאורה הולוגרפית • קצב בלי עצירות</p>
+                <div class="coupon-banner">
+                    <span class="coupon-code">AnLoMinus</span>
+                    <span class="coupon-text">קוד קופון להנחה מיוחדת</span>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#events" class="btn btn-primary">אירועים קרובים</a>
+                    <a href="coupons.html" class="btn btn-secondary">🎫 קופונים</a>
+                    <a href="membership.html" class="btn btn-secondary">⭐ מנויים</a>
+                    <a href="#location" class="btn btn-secondary">איך להגיע</a>
+                    <a href="https://chat.whatsapp.com/L1TmsRNf8DT5mC8MOOq8O9" target="_blank"
+                        class="btn btn-secondary whatsapp-group-btn">💬 קבוצת וואטסאפ</a>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">אודות DNA</h2>
+                <p class="section-subtitle">החזון והחוויה</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>DNA הוא לא סתם מועדון</h3>
+                    <p>זה <strong>Nexus</strong> – צומת אנרגיה שבה המוזיקה, האנשים והלילה הופכים לסיפור אחד.</p>
+                    <p>המטרה שלנו היא ליצור לילות שמעלים תדר ומייצרים זכרונות.</p>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🎧</div>
+                            <h4>מוזיקה מרימה דופק</h4>
+                            <p>טראפ, היפ-הופ, אפרוביט, טכנו, EDM</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔥</div>
+                            <h4>לייזרים וLEDs</h4>
+                            <p>מציירים את האוויר באנימציות ייחודיות</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🧬</div>
+                            <h4>סמל DNA</h4>
+                            <p>כחתימת המועדון הייחודית</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⚡</div>
+                            <h4>חוויה דינמית</h4>
+                            <p>שנבנית מרגע לרגע</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="events">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">אירועים קרובים</h2>
+                <p class="section-subtitle">לילות מיוחדים שמחכים לך</p>
+            </div>
+            <div class="events-grid" id="eventsGrid">
+                <!-- Events will be loaded dynamically -->
+                <div class="event-card">
+                    <div class="event-date">
+                        <span class="date-day">22</span>
+                        <span class="date-month">נוב</span>
+                    </div>
+                    <div class="event-content">
+                        <h3>ליל פתיחה</h3>
+                        <p class="event-time">🕒 23:00 - 05:00</p>
+                        <p class="event-dj">🎧 DJ אורחים מיוחדים</p>
+                        <p class="event-style">🎵 טראפ & היפ-הופ</p>
+                        <div class="event-tags">
+                            <span class="tag">חדש</span>
+                            <span class="tag">VIP</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <div class="event-date">
+                        <span class="date-day">05</span>
+                        <span class="date-month">דצמ</span>
+                    </div>
+                    <div class="event-content">
+                        <h3>אפרו טראפ נייט</h3>
+                        <p class="event-time">🕒 22:00 - 04:00</p>
+                        <p class="event-dj">🎧 דיג'ייז אורחים</p>
+                        <p class="event-style">🎵 אפרוביט & טראפ</p>
+                        <div class="event-tags">
+                            <span class="tag">חם</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="location" class="location">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">איך להגיע</h2>
+                <p class="section-subtitle">מצאו אותנו בקלות</p>
+            </div>
+            <div class="location-content">
+                <div class="location-info">
+                    <div class="location-item">
+                        <div class="location-icon">📍</div>
+                        <div class="location-details">
+                            <h3>כתובת</h3>
+                            <p>הנגר 4, תעשייה חולון</p>
+                        </div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-icon">🚗</div>
+                        <div class="location-details">
+                            <h3>חניה</h3>
+                            <p>חניה ציבורית זמינה באזור</p>
+                        </div>
+                    </div>
+                    <div class="location-item">
+                        <div class="location-icon">🚌</div>
+                        <div class="location-details">
+                            <h3>תחבורה ציבורית</h3>
+                            <p>קווים העוברים באזור התעשייה חולון</p>
+                        </div>
+                    </div>
+                    <a href="https://maps.google.com/?q=הנגר+4+חולון" target="_blank" class="btn btn-primary">פתח
+                        במפות</a>
+                </div>
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3380.1234567890123!2d34.7801234!3d32.0123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzLCsDAwJzQ0LjQiTiAzNMKwNDYnNDguNCJF!5e0!3m2!1she!2sil!4v1234567890123!5m2!1she!2sil"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">מחירים והטבות</h2>
+                <p class="section-subtitle">Spark Zone - האזור החם</p>
+            </div>
+            <div class="pricing-content">
+                <div class="pricing-card main">
+                    <div class="pricing-header">
+                        <h3>כניסה רגילה</h3>
+                        <div class="price">100 ₪</div>
+                        <div class="price-with-coupon">50% הנחה מ-14:00 בשבת</div>
+                    </div>
+                    <div class="opening-hours">
+                        <p><strong>פתוח:</strong></p>
+                        <p>חמישי, שישי, שבת - קבוע</p>
+                        <p>ימי שבת מ-14:00</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>🎫 כניסה למועדון</li>
+                        <li>🎯 גישה לכל האזורים</li>
+                        <li>🎵 מוזיקה חיה</li>
+                        <li>🏊 בריכה</li>
+                        <li>🚬 סנוגר</li>
+                        <li>🪑 אזור ישיבה חיצוני</li>
+                        <li>🅿️ חנייה בשפע</li>
+                    </ul>
+                </div>
+                <div class="pricing-card special">
+                    <div class="spark-badge">⚡ Spark Zone ⚡</div>
+                    <div class="pricing-header">
+                        <h3>הטבה מיוחדת</h3>
+                        <p class="spark-instruction">אמור בשער:</p>
+                        <div class="spark-code">"I'm in the Spark Zone"</div>
+                        <p class="coupon-instruction" style="margin-top: 1rem;">או השתמש בקוד קופון:</p>
+                        <div class="spark-code coupon-code-large">AnLoMinus</div>
+                    </div>
+                    <div class="spark-benefits">
+                        <div class="benefit-option">
+                            <span class="benefit-icon">✂️</span>
+                            <span>50% הנחה → 50 ₪</span>
+                        </div>
+                        <div class="benefit-divider">או</div>
+                        <div class="benefit-option">
+                            <span class="benefit-icon">⭐</span>
+                            <span>שדרוג VIP ב-20 ₪</span>
+                        </div>
+                        <div class="benefit-divider">או</div>
+                        <div class="benefit-option">
+                            <span class="benefit-icon">🍹</span>
+                            <span>דרינק ראשון חינם</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">צור קשר</h2>
+                <p class="section-subtitle">נשמח לשמוע ממך</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">👤</div>
+                        <div>
+                            <h3>אדיר DNA</h3>
+                            <p>
+                                <a href="https://wa.me/972525818799" target="_blank" class="whatsapp-link">
+                                    📱 +972 52-581-8799
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">👤</div>
+                        <div>
+                            <h3>~אלין</h3>
+                            <p>
+                                <a href="https://wa.me/972527726987" target="_blank" class="whatsapp-link">
+                                    📱 +972 52-772-6987
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🎫</div>
+                        <div>
+                            <h3>קוד קופון</h3>
+                            <p class="coupon-display">AnLoMinus</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">💬</div>
+                        <div>
+                            <h3>קבוצת וואטסאפ</h3>
+                            <p>
+                                <a href="https://chat.whatsapp.com/L1TmsRNf8DT5mC8MOOq8O9" target="_blank"
+                                    class="whatsapp-link whatsapp-group-link">
+                                    הצטרף לקבוצה 📱
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="contactPerson">שלח לאן?</label>
+                        <select id="contactPerson" name="contactPerson" required>
+                            <option value="">בחר איש קשר</option>
+                            <option value="adir">אדיר DNA (+972 52-581-8799)</option>
+                            <option value="elin">~אלין (+972 52-772-6987)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="שם מלא" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="אימייל" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="phone" name="phone" placeholder="טלפון" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" rows="5" placeholder="הודעה" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">שלח לוואטסאפ</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="assets/logo/dna-logo.png" alt="DNA HOUSE" class="footer-logo-img"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                        <span class="dna-symbol" style="display:none;">🧬</span>
+                        <span>DNA HOUSE</span>
+                    </div>
+                    <p>הבית של הלילה בחולון</p>
+                    <div class="footer-contact">
+                        <p><strong>צור קשר:</strong></p>
+                        <p><a href="https://wa.me/972525818799" target="_blank" class="footer-link">אדיר: +972
+                                52-581-8799</a></p>
+                        <p><a href="https://wa.me/972527726987" target="_blank" class="footer-link">~אלין: +972
+                                52-772-6987</a></p>
+                        <p class="footer-coupon"><strong>קוד קופון:</strong> AnLoMinus</p>
+                        <p style="margin-top: 1rem;">
+                            <a href="https://chat.whatsapp.com/L1TmsRNf8DT5mC8MOOq8O9" target="_blank"
+                                class="footer-link whatsapp-group-link">
+                                💬 הצטרף לקבוצת וואטסאפ
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>קישורים מהירים</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">בית</a></li>
+                        <li><a href="#about">אודות</a></li>
+                        <li><a href="#events">אירועים</a></li>
+                        <li><a href="events.html">יומן אירועים</a></li>
+                        <li><a href="coupons.html">קופונים</a></li>
+                        <li><a href="membership.html">מנויים</a></li>
+                        <li><a href="gallery.html">גלריה</a></li>
+                        <li><a href="roadmap.html">מפת דרכים</a></li>
+                        <li><a href="contributors.html">תורמים</a></li>
+                        <li><a href="license.html">רישיון</a></li>
+                        <li><a href="#location">מיקום</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>האשטגים</h4>
+                    <div class="hashtags">
+                        <span>#DNAClub</span>
+                        <span>#DNANights</span>
+                        <span>#DanceNexus</span>
+                        <span>#Holon</span>
+                        <span>#SparkZone</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 DNA חולון. כל הזכויות שמורות. |
+                    <a href="license.html" class="footer-link">רישיון</a> |
+                    <a href="contributors.html" class="footer-link">תורמים</a> |
+                    קוד קופון: <strong>AnLoMinus</strong>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
