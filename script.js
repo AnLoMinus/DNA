@@ -287,3 +287,130 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// Club Status Timer
+function getClubStatus() {
+    const now = new Date();
+    const day = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 5 = Thursday, 6 = Saturday
+    const hour = now.getHours();
+    const minute = now.getMinutes();
+    
+    let isOpen = false;
+    let targetTime = null;
+    let message = '';
+    
+    // Thursday: opens at 22:00 (10 PM)
+    // Friday: open all day
+    // Saturday: open until 06:00 (6 AM)
+    
+    if (day === 4) { // Thursday
+        if (hour >= 22) {
+            // Open - countdown to Sunday 06:00 (מוצאי שבת)
+            isOpen = true;
+            targetTime = new Date(now);
+            targetTime.setDate(targetTime.getDate() + 2); // Saturday -> Sunday
+            targetTime.setHours(6, 0, 0, 0); // Sunday 06:00 (מוצאי שבת)
+            message = 'המועדון פתוח עכשיו! נסגר במוצאי שבת בשעה 06:00';
+        } else {
+            // Closed - countdown to Thursday 22:00
+            isOpen = false;
+            targetTime = new Date(now);
+            targetTime.setHours(22, 0, 0, 0);
+            if (targetTime <= now) {
+                targetTime.setDate(targetTime.getDate() + 1);
+            }
+            message = 'המועדון סגור. נפתח היום בשעה 22:00';
+        }
+    } else if (day === 5) { // Friday
+        // Open - countdown to Sunday 06:00 (מוצאי שבת)
+        isOpen = true;
+        targetTime = new Date(now);
+        targetTime.setDate(targetTime.getDate() + 2); // Saturday -> Sunday
+        targetTime.setHours(6, 0, 0, 0);
+        message = 'המועדון פתוח עכשיו! נסגר במוצאי שבת בשעה 06:00';
+    } else if (day === 6) { // Saturday
+        // Open all day Saturday - countdown to Sunday 06:00 (מוצאי שבת)
+        isOpen = true;
+        targetTime = new Date(now);
+        targetTime.setDate(targetTime.getDate() + 1); // Sunday
+        targetTime.setHours(6, 0, 0, 0);
+        message = 'המועדון פתוח עכשיו! נסגר מחר במוצאי שבת בשעה 06:00';
+    } else if (day === 0) { // Sunday
+        if (hour < 6) {
+            // Open - still Saturday night, closes at 06:00
+            isOpen = true;
+            targetTime = new Date(now);
+            targetTime.setHours(6, 0, 0, 0);
+            message = 'המועדון פתוח עכשיו! נסגר היום בשעה 06:00';
+        } else {
+            // Closed - countdown to next Thursday 22:00
+            isOpen = false;
+            targetTime = new Date(now);
+            const daysUntilThursday = 4; // Thursday is 4 days away from Sunday
+            targetTime.setDate(targetTime.getDate() + daysUntilThursday);
+            targetTime.setHours(22, 0, 0, 0);
+            message = 'המועדון סגור. נפתח ביום חמישי בשעה 22:00';
+        }
+    } else { // Monday - Wednesday
+        // Closed - countdown to next Thursday 22:00
+        isOpen = false;
+        targetTime = new Date(now);
+        const daysUntilThursday = (4 - day + 7) % 7 || 7;
+        targetTime.setDate(targetTime.getDate() + daysUntilThursday);
+        targetTime.setHours(22, 0, 0, 0);
+        message = 'המועדון סגור. נפתח ביום חמישי בשעה 22:00';
+    }
+    
+    return { isOpen, targetTime, message };
+}
+
+function updateTimer() {
+    const statusTimer = document.getElementById('clubStatusTimer');
+    if (!statusTimer) return;
+    
+    const { isOpen, targetTime, message } = getClubStatus();
+    
+    // Update status indicator
+    const statusDot = document.getElementById('statusDot');
+    const statusText = document.getElementById('statusText');
+    const timerMessage = document.getElementById('timerMessage');
+    
+    if (statusDot && statusText && timerMessage) {
+        statusDot.className = `status-dot ${isOpen ? 'open' : 'closed'}`;
+        statusText.className = `status-text ${isOpen ? 'open' : 'closed'}`;
+        statusText.textContent = isOpen ? 'פתוח עכשיו' : 'סגור';
+        timerMessage.textContent = message;
+    }
+    
+    // Calculate time difference
+    const now = new Date();
+    const diff = targetTime - now;
+    
+    if (diff <= 0) {
+        // Time has passed, recalculate
+        setTimeout(updateTimer, 1000);
+        return;
+    }
+    
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    // Update timer display
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    
+    if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+    if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+    if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+    if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+}
+
+// Initialize and update timer
+if (document.getElementById('clubStatusTimer')) {
+    updateTimer();
+    setInterval(updateTimer, 1000); // Update every second
+}
+

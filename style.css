@@ -984,6 +984,167 @@ section {
     letter-spacing: 3px;
 }
 
+/* Club Status Timer */
+.club-status-timer {
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(10, 10, 15, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    border: 2px solid rgba(139, 92, 246, 0.3);
+    max-width: 600px;
+    text-align: center;
+    animation: fadeInUp 1s ease 1s both;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.status-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse-dot 2s ease-in-out infinite;
+    box-shadow: 0 0 20px currentColor;
+}
+
+.status-dot.open {
+    background: #10B981;
+    color: #10B981;
+    box-shadow: 0 0 20px #10B981;
+}
+
+.status-dot.closed {
+    background: #EF4444;
+    color: #EF4444;
+    box-shadow: 0 0 20px #EF4444;
+}
+
+@keyframes pulse-dot {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.1);
+    }
+}
+
+.status-text {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.status-text.open {
+    color: #10B981;
+}
+
+.status-text.closed {
+    color: #EF4444;
+}
+
+.timer-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.timer-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 70px;
+}
+
+.timer-value {
+    font-size: 2.5rem;
+    font-weight: 900;
+    font-family: monospace;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+}
+
+.timer-label {
+    font-size: 0.85rem;
+    color: var(--gray-text);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.timer-separator {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--primary-color);
+    margin: 0 0.3rem;
+    line-height: 1;
+}
+
+.timer-message {
+    font-size: 1rem;
+    color: var(--gray-text);
+    margin-top: 1rem;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .club-status-timer {
+        padding: 1.5rem;
+        margin: 1.5rem auto;
+    }
+    
+    .timer-value {
+        font-size: 2rem;
+    }
+    
+    .timer-separator {
+        font-size: 1.5rem;
+    }
+    
+    .status-text {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .timer-display {
+        gap: 0.3rem;
+    }
+    
+    .timer-unit {
+        min-width: 55px;
+    }
+    
+    .timer-value {
+        font-size: 1.5rem;
+    }
+    
+    .timer-label {
+        font-size: 0.7rem;
+    }
+    
+    .timer-separator {
+        font-size: 1.2rem;
+        margin: 0 0.2rem;
+    }
+}
+
 /* WhatsApp Links */
 .whatsapp-link {
     color: #25D366;
